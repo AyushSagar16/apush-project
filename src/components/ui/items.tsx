@@ -1,54 +1,32 @@
 "use client"; // This is a client component
 
-import * as React from "react"
- 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import Counter from "./counter"
-import Image from "next/image"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import React from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Counter from "./counter";
 
-interface CounterProps {
+interface ItemsProps {
   indexf: number;
   productName: string;
   price: number;
   image: string;
+  updateMoneySpent: (spent: number) => void;
 }
 
-const Items: React.FC<CounterProps> = ({ indexf, productName, price, image }) => {
+const Items: React.FC<ItemsProps> = ({ indexf, productName, price, image, updateMoneySpent }) => {
   return (
     <main className="flex flex-col items-center justify-between p-10">
       <Card>
         <CardHeader>
-          {/* images/big-mac.jpg */}
           <div className="flex flex-row justify-center items-center">
-            <img className=" max-w-32 max-h-24 content-center" src={image} alt="product" />
+            <img className="max-w-32 max-h-24 content-center" src={image} alt="product" />
           </div>
           <CardTitle className="text-center">{productName}</CardTitle>
-          <CardDescription className="text-center text">
-            ${price.toLocaleString()}
-          </CardDescription>
+          <CardDescription className="text-center text">${price.toLocaleString()}</CardDescription>
         </CardHeader>
-        <Counter index={indexf} />
+        <Counter index={indexf} updateMoneySpent={updateMoneySpent} />
       </Card>
     </main>
   );
-}
+};
 
 export default Items;

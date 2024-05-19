@@ -1,18 +1,13 @@
 "use client"; // This is a client component
 
-import { get } from 'http';
-import React from 'react';
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button" // Fix the import statement to match the actual file name
-import { Input } from "@/components/ui/input"
-import { log } from 'console';
+import React, { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface CounterProps {
   index: number;
+  updateMoneySpent: (spent: number) => void;
 }
-
-// John Rockefeller's highest income was $340 billion
-const totalMoney = 340000000000;
 
 // CHANGE THIS Dictionary TO ADD MORE ITEMS
 const counterDictionary: CounterDictionary = {
@@ -30,58 +25,43 @@ interface CounterDictionary {
   [key: string]: number;
 }
 
-function logTotalMoney() {
-  var moneySpent = 0;
-  for (let key in counterDictionary) {
-    var inputVal = document.getElementById(key) as HTMLInputElement;
-    var x = inputVal.value;
-    moneySpent += parseInt(x) * counterDictionary[key];
-  }
-  console.log("Total money spent: " + moneySpent.toLocaleString());
-  console.log("Total money left: " + (totalMoney - moneySpent).toLocaleString());
-}
+const Counter: React.FC<CounterProps> = ({ index, updateMoneySpent }) => {
+  const [value, setValue] = useState(0);
 
-const Counter: React.FC<CounterProps> = ({ index }) => {  
-  const handleIncrement = (index1: number) => {
-    try {
-      const counterInput = document.getElementById(index1.toString()) as HTMLInputElement;
-      counterInput.value = (parseInt(counterInput.value) + 1).toString();
-    } catch (err) {
-      console.log("womp womp");
-    }
+  const handleIncrement = () => {
+    setValue((prev) => prev + 1);
   };
 
-  const handleDecrement = (index1: number) => {
-    try {
-      const counterInput = document.getElementById(index1.toString()) as HTMLInputElement;
-      counterInput.value = (parseInt(counterInput.value) - 1).toString();
-    } catch (err) {
-      console.log('womp womp');
-    }
+  const handleDecrement = () => {
+    setValue((prev) => (prev > 0 ? prev - 1 : 0));
   };
+
+  useEffect(() => {
+    var moneySpent = 0;
+    for (let key in counterDictionary) {
+      var inputVal = document.getElementById(key) as HTMLInputElement;
+      var x = inputVal.value;
+      moneySpent += parseInt(x) * counterDictionary[key];
+    }
+    updateMoneySpent(moneySpent);
+  }, [value, updateMoneySpent]);
 
   return (
-    <>
-      <div className='flex justify-center my-2 w-full max-w-sm items-center space-x-2'>
-        <Button className='bg-red-500 hover:bg-red-700' onClick={() => {
-          handleDecrement(index)
-          logTotalMoney()
-          }}>
-            Sell
-        </Button>
-        <Input onChange={() => logTotalMoney()} 
-          className='w-1/6 text-center' 
-          id={index.toString()} 
-          type="text" 
-          defaultValue={"0"} />
-        <Button className='bg-green-500 hover:bg-green-700' onClick={() => {
-          handleIncrement(index)
-          logTotalMoney()
-          }}>
-            Buy
-        </Button>
-      </div>
-    </>
+    <div className='flex justify-center my-2 w-full max-w-sm items-center space-x-2'>
+      <Button className='bg-red-500 hover:bg-red-700' onClick={handleDecrement}>
+        Sell
+      </Button>
+      <Input
+        className='w-1/5 text-center'
+        id={index.toString()}
+        type="text"
+        value={value.toString()}
+        onChange={(e) => setValue(parseInt(e.target.value))}
+      />
+      <Button className='bg-green-500 hover:bg-green-700' onClick={handleIncrement}>
+        Buy
+      </Button>
+    </div>
   );
 };
 
