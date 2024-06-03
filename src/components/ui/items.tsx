@@ -14,11 +14,11 @@ interface ItemsProps {
 
 const Items: React.FC<ItemsProps> = ({ indexf, productName, price, image, updateMoneySpent }) => {
   return (
-    <main className="flex flex-col items-center justify-between p-10">
-      <Card>
+    <main className="flex flex-col items-center justify-between p-10 max-w-md">
+      <Card >
         <CardHeader>
           <div className="flex flex-row justify-center items-center">
-            <img className="max-w-32 max-h-24 content-center" src={image} alt="product" />
+            <img className="w-auto h-auto max-w-32 max-h-24 content-center" src={image} alt="product" />
           </div>
           <CardTitle className="text-center">{productName}</CardTitle>
           <CardDescription className="text-center text">${price.toLocaleString()}</CardDescription>
