@@ -65,12 +65,8 @@ export default function Home() {
         <p className="mb-20">to make what he made in his lifetime.</p>
       </div>
 
-      <div className="w-full m-5">
-        <ul className="items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-          <li>
-            <img className="md:max-h-64 max-h-24" src="/images/bill.jpg" alt="Dollar Bill" />
-          </li>
-        </ul>
+      <div className="flex items-center justify-center w-full m-5">
+            <img className="md:max-h-64 max-h-32" src="/images/bill.jpg" alt="Dollar Bill" />
       </div>
     </main>    
   );

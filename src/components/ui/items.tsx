@@ -9,6 +9,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
+import InfoTooltip from "./info-tooltip";
 
 import Counter from "./counter";
 import { Info } from "lucide-react";
@@ -28,18 +29,7 @@ const Items: React.FC<ItemsProps> = ({ indexf, productName, price, image, update
       <Card>
         <CardHeader>
           <div className="ml-auto">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant={"ghost"}>
-                    <Info size={24} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className=" max-w-64">{tooltip}</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider> 
+            <InfoTooltip information={tooltip}/> 
           </div>
           <div className="flex flex-row justify-center items-center">
             <img className="w-auto h-auto max-w-32 max-h-24 content-center" src={image} alt="product" />
