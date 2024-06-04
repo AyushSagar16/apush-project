@@ -35,8 +35,8 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-between p-1">
-      <h1 className="text-4xl font-bold m-2 justify-center content-center">{"Spend Rockefeller's Money"}</h1>
-      <div className="text-3xl font-bold text-amber-500">
+      <h1 className="md:text-6xl text-4xl font-bold m-2 justify-center content-center">{"Spend Rockefeller's Money"}</h1>
+      <div className="md:text-5xl text-3xl font-bold text-amber-500">
         <p>${(totalMoney - moneySpent).toLocaleString()}</p>
       </div>       
       <div className="grid grid-cols-1 sm:grid-cols-3">
@@ -56,10 +56,13 @@ export default function Home() {
         <Items indexf={13} productName="University of Chicago" price={11200000000} image="/images/uchicago.webp" updateMoneySpent={updateMoneySpent} tooltip={tooltipStrings[13]} />
       </div>
 
+      <hr className="w-11/12 m-4 bg-gray-900" />
+
       <div className="m-4">
+        <h1 className="text-4xl font-bold mb-2">Did you know?</h1>
         <p>Rockefeller made a lot of money yet his employees made a measly $3 - $5 per hour. </p>
         <h1 className="text-2xl text-red-400">At this rate it would take them</h1>
-        <div className="text-3xl font-bold text-red-600">
+        <div className="text-3xl font-bold text-red-600 my-8">
           <Countdown hours={Math.floor(totalMoney / 3 / 50 / 52)} />
         </div>
         <p className="mb-20">to make what he made in his lifetime.</p>
